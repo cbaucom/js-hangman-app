@@ -1,65 +1,63 @@
-const Hangman = function(word, remainingGuesses) {
-  this.word = word.toLowerCase().split("");
-  this.remainingGuesses = remainingGuesses;
-  this.guessedLetters = [];
-  this.status = "playing";
-};
-
-Hangman.prototype.calculateStatus = function() {
-  const finished = this.word.every(letter => {
-    return this.guessedLetters.includes(letter);
-  });
-
-  if (this.remainingGuesses === 0) {
-    this.status = "game over";
-  } else if (finished) {
-    this.status = "finished";
-  } else {
+class Hangman {
+  constructor(word, remainingGuesses) {
+    this.word = word.toLowerCase().split("");
+    this.remainingGuesses = remainingGuesses;
+    this.guessedLetters = [];
     this.status = "playing";
   }
-};
+  calculateStatus() {
+    const finished = this.word.every(letter => {
+      return this.guessedLetters.includes(letter);
+    });
 
-Hangman.prototype.getStatusMessage = function() {
-  if (this.status === "playing") {
-    return `Guesses left: ${this.remainingGuesses}`;
-  } else if (this.status === "game over") {
-    return `Nice try! The word was "${this.word.join("")}".`;
-  } else {
-    return "Great work! You guessed the word.";
-  }
-};
-
-Hangman.prototype.getPuzzle = function() {
-  let puzzle = "";
-
-  this.word.forEach(letter => {
-    if (this.guessedLetters.includes(letter) || letter === " ") {
-      puzzle += letter;
+    if (this.remainingGuesses === 0) {
+      this.status = "game over";
+    } else if (finished) {
+      this.status = "finished";
     } else {
-      puzzle += "*";
+      this.status = "playing";
     }
-  });
-
-  return puzzle;
-};
-
-Hangman.prototype.makeGuess = function(guess) {
-  guess = guess.toLowerCase();
-  const isUnique = !this.guessedLetters.includes(guess);
-  const isBadGuess = !this.word.includes(guess);
-
-  // Disable guess if out of turns
-  if (this.status !== "playing") {
-    return;
   }
-
-  if (isUnique) {
-    this.guessedLetters.push(guess);
+  getStatusMessage() {
+    if (this.status === "playing") {
+      return `Guesses left: ${this.remainingGuesses}`;
+    } else if (this.status === "game over") {
+      return `Nice try! The word was "${this.word.join("")}".`;
+    } else {
+      return "Great work! You guessed the word.";
+    }
   }
+  getPuzzle() {
+    let puzzle = "";
 
-  if (isUnique && isBadGuess) {
-    this.remainingGuesses--;
+    this.word.forEach(letter => {
+      if (this.guessedLetters.includes(letter) || letter === " ") {
+        puzzle += letter;
+      } else {
+        puzzle += "*";
+      }
+    });
+
+    return puzzle;
   }
+  makeGuess(guess) {
+    guess = guess.toLowerCase();
+    const isUnique = !this.guessedLetters.includes(guess);
+    const isBadGuess = !this.word.includes(guess);
 
-  this.calculateStatus();
-};
+    // Disable guess if out of turns
+    if (this.status !== "playing") {
+      return;
+    }
+
+    if (isUnique) {
+      this.guessedLetters.push(guess);
+    }
+
+    if (isUnique && isBadGuess) {
+      this.remainingGuesses--;
+    }
+
+    this.calculateStatus();
+  }
+}
