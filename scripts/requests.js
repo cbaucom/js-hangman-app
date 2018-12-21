@@ -1,7 +1,7 @@
 // Using async/await
 const getPuzzle = async wordCount => {
   const response = await fetch(
-    `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`,
+    `//puzzle.mead.io/puzzle?wordCount=${wordCount}`,
     {}
   );
 
@@ -15,7 +15,7 @@ const getPuzzle = async wordCount => {
 
 // Using Fetch with Promises
 // const getPuzzle = wordCount => {
-//   return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`, {})
+//   return fetch(`//puzzle.mead.io/puzzle?wordCount=${wordCount}`, {})
 //     .then(response => {
 //       if (response.status === 200) {
 //         return response.json();
@@ -42,7 +42,7 @@ const getPuzzle = async wordCount => {
 //       }
 //     });
 
-//     request.open("GET", `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`);
+//     request.open("GET", `//puzzle.mead.io/puzzle?wordCount=${wordCount}`);
 //     request.send();
 //   });
 
@@ -59,7 +59,7 @@ const getPuzzle = async wordCount => {
 //     }
 //   });
 
-//   request.open("GET", `http://puzzle.mead.io/puzzle?wordCount=${wordCount}`);
+//   request.open("GET", `//puzzle.mead.io/puzzle?wordCount=${wordCount}`);
 //   request.send();
 // };
 
@@ -71,7 +71,7 @@ const getCurrentCountry = async () => {
 };
 
 const getLocation = async () => {
-  const response = await fetch("http://ipinfo.io/json?token=1a11bd55cc8f9c");
+  const response = await fetch("//ipinfo.io/json?token=1a11bd55cc8f9c");
 
   if (response.status === 200) {
     return response.json();
